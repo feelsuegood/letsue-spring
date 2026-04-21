@@ -32,11 +32,15 @@ public class ItemController {
 //        var result = ItemRepository.findAll();
 //        System.out.print(result);
         List<Item> result = ItemRepository.findAll();
-        System.out.println(result.get(0));
-        System.out.println(result.get(0).title);
-        var a = new ArrayList<>();
+//        System.out.println(result.get(0));
+//        System.out.println(result.get(0).title);
+//        var a = new ArrayList<>();
 //        model.addAttribute("name of the data to deliver", "data");
-        model.addAttribute("name", "sweetfirefist");
+        model.addAttribute("items", result);
+
+        var a = new Item();
+        System.out.println(a);
+        System.out.println(a.toString());
         return "list.html";
     }
 }
