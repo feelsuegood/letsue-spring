@@ -2,14 +2,16 @@
 package com.feelsuegood.letsue_spring;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // Collection of Item-related APIs
 @Controller
@@ -38,9 +40,42 @@ public class ItemController {
 //        model.addAttribute("name of the data to deliver", "data");
         model.addAttribute("items", result);
 
-        var a = new Item();
-        System.out.println(a);
-        System.out.println(a.toString());
+//        var a = new Item();
+//        System.out.println(a);
+//        System.out.println(a.toString());
+//        System.out.println(a);
         return "list.html";
+    }
+
+    @GetMapping("/write")
+    String write(){
+        return "write.html";
+    }
+
+//    Nouns are good when naming URLs
+    @PostMapping("/add")
+//    String addPost(@RequestParam(name ="title") String title, String price){
+    String addPost(@RequestParam Map formData){
+//        System.out.println(title);
+//        System.out.println(price);
+//        System.out.println(formData);
+
+//      var test = new HashMap<>();
+//      HashMap<String, Object> test = new HashMap<>();
+//        Map<String, Object> test = new HashMap<>();
+//        test.put("name", "Sue");
+//        test.put("age", 20);
+//        System.out.println(test);
+//        System.out.println(test.get("name"));
+        System.out.println(formData);
+        var add = new Item();
+//        add.title = formData.get("title").toString();
+        add.setTitle(formData.get("title").toString());
+//        add.price = Integer.parseInt(formData.get("price").toString());
+        add.setPrice(Integer.parseInt(formData.get("price").toString()));
+        System.out.println(add);
+        ItemRepository.save(add);
+
+        return "redirect:/list";
     }
 }
