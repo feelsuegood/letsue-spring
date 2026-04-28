@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,7 +56,9 @@ public class ItemController {
 //    Nouns are good when naming URLs
     @PostMapping("/add")
 //    String addPost(@RequestParam(name ="title") String title, String price){
-    String addPost(@RequestParam Map formData){
+//    String addPost(@RequestParam Map formData){
+    String addPost(String title, Integer price){
+//    String addPost(@ModelAttribute Item item){
 //        System.out.println(title);
 //        System.out.println(price);
 //        System.out.println(formData);
@@ -67,14 +70,20 @@ public class ItemController {
 //        test.put("age", 20);
 //        System.out.println(test);
 //        System.out.println(test.get("name"));
-        System.out.println(formData);
-        var add = new Item();
+//        System.out.println(formData);
+//        var add = new Item();
+        Item item = new Item();
+        item.setTitle(title);
+        item.setPrice(price);
 //        add.title = formData.get("title").toString();
-        add.setTitle(formData.get("title").toString());
+//        add.setTitle(formData.get("title").toString());
 //        add.price = Integer.parseInt(formData.get("price").toString());
-        add.setPrice(Integer.parseInt(formData.get("price").toString()));
-        System.out.println(add);
-        ItemRepository.save(add);
+//        add.setPrice(Integer.parseInt(formData.get("price").toString()));
+//        System.out.println(add);
+//        ItemRepository.save(add);
+
+//        System.out.println(item);
+        ItemRepository.save(item);
 
         return "redirect:/list";
     }
