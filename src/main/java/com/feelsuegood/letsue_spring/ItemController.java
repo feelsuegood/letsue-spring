@@ -4,22 +4,20 @@ package com.feelsuegood.letsue_spring;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 //import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 // Collection of Item-related APIs
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
 
-    private final ItemRepository ItemRepository;
+    private final ItemRepository itemRepository;
 
 //    how to use without lombok
 //    @Autowired
@@ -32,9 +30,9 @@ public class ItemController {
 //    @ResponseBody
     String list(Model model){
 //        how to use lombok
-//        var result = ItemRepository.findAll();
+//        var result = itemRepository.findAll();
 //        System.out.print(result);
-        List<Item> result = ItemRepository.findAll();
+        List<Item> result = itemRepository.findAll();
 //        System.out.println(result.get(0));
 //        System.out.println(result.get(0).title);
 //        var a = new ArrayList<>();
@@ -83,8 +81,17 @@ public class ItemController {
 //        ItemRepository.save(add);
 
 //        System.out.println(item);
-        ItemRepository.save(item);
+        itemRepository.save(item);
 
         return "redirect:/list";
+    }
+
+    @GetMapping("/detail/{id}")
+    String detail(@PathVariable int id){
+        Optional<Item> result =itemRepository.findById(id);
+        if( result.isPresent() ){
+            System.out.println(result.get());
+        }
+        return "detail.html";
     }
 }
