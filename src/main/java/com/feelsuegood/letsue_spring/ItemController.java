@@ -56,6 +56,7 @@ public class ItemController {
 //    String addPost(@RequestParam(name ="title") String title, String price){
 //    String addPost(@RequestParam Map formData){
     String addPost(String title, Integer price){
+//    String addPost(String title, Integer price) throws Exception {
 //    String addPost(@ModelAttribute Item item){
 //        System.out.println(title);
 //        System.out.println(price);
@@ -83,14 +84,19 @@ public class ItemController {
 //        System.out.println(item);
         itemRepository.save(item);
 
+//        throw new Exception();
+
         return "redirect:/list";
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable int id){
+    String detail(@PathVariable Long id, Model model){
         Optional<Item> result =itemRepository.findById(id);
         if( result.isPresent() ){
             System.out.println(result.get());
+            model.addAttribute("data", result.get());
+        } else {
+            return "redirect:/list";
         }
         return "detail.html";
     }

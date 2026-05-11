@@ -33,6 +33,7 @@
     <div>
         <h4 th:text="${i.getTitle()}">Trousers</h4>
 <!--        <h4 th:text="${items[0].title}">Trousers</h4>-->
+        <a th:href="@{ '/detail/' + ${i.id} }">Link</a>
         <p th:text="${i.getPrice()}">7k</p>
     </div>
 </div>
